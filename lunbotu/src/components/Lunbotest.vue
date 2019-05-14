@@ -27,7 +27,7 @@ export default {
         {src: 'http://chzflive.caihome.cn/web/o_1c7390v9q1al1rak17g2v3uhc438?x-oss-process=image/resize,m_fill,h_240,w_320'}
       ],
       contenter: this.$refs.swiper,
-      active: -1,
+      active: 0,
       off: true,
       autoplay: 5000,
       start: null
@@ -50,6 +50,9 @@ export default {
   methods: {
     // 图片移动
     backlate (offert) {
+      if (-this.active > this.list.length - 1) {
+        this.active = 0
+      }
       let _that = this
       if (!offert) offert = 0;
       (this.list).forEach((item, index) => {
@@ -82,7 +85,6 @@ export default {
         this.backlate(-this.$refs.ritem[0].clientWidth)
         this.active--
       }
-
       this.setactive(this.active)
       setTimeout(() => {
         this._autoplay()
@@ -90,10 +92,10 @@ export default {
     },
     // 循环滚动处理
     setactive (active) {
-      if (active === 0) {
-        this.active = -6
-      } else if (active === -7) {
-        this.active = -1
+      if (active === 1) {
+        this.active = -(this.list.length - 1)
+      } else if (active === -this.list.length) {
+        this.active = 0
       } else {
         return false
       }
@@ -127,26 +129,26 @@ export default {
 </script>
 <style>
 .carousel {
-    overflow: hidden;
-    width: 100%;
-    height: 500px;
-    position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 300px;
+  position: relative;
 }
 .car {
-    width: 100%;
-    height:100%;
-    position: relative;
-    }
+  width: 100%;
+  height:100%;
+  position: relative;
+}
 p{
-    position: absolute;
-    width: 100%;
-    flex: 1;
-    height:100%;
-    background-size: 100%;
-    text-align: center;
-    font-size: 30px;
-    color: #fff;
-    line-height: 500px;
+  position: absolute;
+  width: 100%;
+  flex: 1;
+  height:100%;
+  background-size: 100%;
+  text-align: center;
+  font-size: 30px;
+  color: #fff;
+  line-height: 500px;
 }
 
 </style>
